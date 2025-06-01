@@ -34,9 +34,6 @@ export function LandingCTA() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-              Learn More
-            </Button>
           </div>
 
           <div className="flex flex-wrap justify-center gap-8 text-blue-200 text-sm">
