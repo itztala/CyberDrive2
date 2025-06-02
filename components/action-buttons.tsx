@@ -59,7 +59,7 @@ export function ActionButtons({ attack }: ActionButtonsProps) {
                 Test your understanding with real-world scenarios and reinforce what you've learned through hands-on
                 practice.
               </p>
-              <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold" asChild>
+              <Button size="lg" className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold" asChild>
                 <Link href={`/simulation-lab/${attack.slug}/quiz`}>
                   <Brain className="mr-2 h-5 w-5" />
                   Take the Quiz
