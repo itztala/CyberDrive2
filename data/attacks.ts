@@ -10,7 +10,6 @@ export interface Attack {
   tagline: string
   summary: string
   difficulty: string
-  duration: string
   color: string
   scenario: string
   mission: string
@@ -28,7 +27,6 @@ export const attacks: Attack[] = [
     summary:
       "Hackers inject false messages into the vehicle's nervous system, altering behavior like lights, brakes, or engine control.",
     difficulty: "Intermediate",
-    duration: "45 min",
     color: "red",
     scenario:
       "You are a cybersecurity researcher investigating a connected vehicle that has been exhibiting strange behavior. The car's lights are flickering randomly, the engine RPM is fluctuating without driver input, and the brake system is showing intermittent warning messages. Your task is to identify and analyze a CAN Bus spoofing attack that is injecting malicious messages into the vehicle's Controller Area Network.",
@@ -126,7 +124,6 @@ export const attacks: Attack[] = [
     summary:
       "Attackers create false LiDAR signals, tricking the car into reacting to fake obstacles or ignoring real ones.",
     difficulty: "Advanced",
-    duration: "60 min",
     color: "purple",
     scenario:
       "You are working as a security consultant for an autonomous vehicle manufacturer. During testing, several self-driving cars have been making unexpected emergency stops and swerving maneuvers in areas where no obstacles are present. Additionally, some vehicles have failed to detect actual obstacles that should have triggered automatic braking. Your investigation reveals that the LiDAR sensors are receiving manipulated signals that create false point cloud data.",
@@ -233,7 +230,6 @@ export const attacks: Attack[] = [
     tagline: "The map says left. The car should go right. You're lost — on purpose.",
     summary: "Fake GPS signals mislead the vehicle's navigation system, causing disorientation and potential hazards.",
     difficulty: "Beginner",
-    duration: "30 min",
     color: "blue",
     scenario:
       "You are a cybersecurity analyst investigating reports of connected vehicles experiencing navigation anomalies in a specific geographic area. Drivers report that their GPS systems are showing incorrect locations, routing them to wrong destinations, and in some cases, directing them into dangerous areas or dead ends. Your preliminary investigation suggests that someone is broadcasting fake GPS signals to manipulate vehicle navigation systems.",
@@ -323,7 +319,6 @@ export const attacks: Attack[] = [
     tagline: "You're no longer in control. Someone else is driving — remotely.",
     summary: "Wireless exploits let hackers take control of driving systems like acceleration and steering.",
     difficulty: "Expert",
-    duration: "90 min",
     color: "red",
     scenario:
       "You are part of an incident response team investigating a series of connected vehicle security breaches. Multiple vehicles from the same manufacturer have experienced unauthorized remote control, with attackers taking control of critical driving functions including steering, acceleration, and braking. The attacks appear to be coordinated and sophisticated, suggesting a well-resourced threat actor. Your team must quickly understand the attack vector and develop countermeasures before more vehicles are compromised.",
@@ -414,7 +409,6 @@ export const attacks: Attack[] = [
     tagline: "The screen flickers. Strange audio plays. You're being watched.",
     summary: "Compromised infotainment systems are used to distract or spy on drivers through unauthorized content.",
     difficulty: "Intermediate",
-    duration: "40 min",
     color: "orange",
     scenario:
       "You are a digital forensics investigator working on a case involving compromised vehicle infotainment systems. Vehicle owners have reported strange behavior including unauthorized audio playback, unexpected video content appearing on displays, and suspicions that their conversations are being recorded. Some drivers have also reported receiving threatening messages through their vehicle's display system. Your investigation needs to determine how attackers gained access to these systems and what data may have been compromised.",

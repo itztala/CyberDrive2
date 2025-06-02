@@ -52,10 +52,6 @@ export function AttackDetail({ attack }: AttackDetailProps) {
                 >
                   {attack.difficulty}
                 </span>
-                <div className="flex items-center text-slate-300 text-sm">
-                  <Clock className="h-4 w-4 mr-1" />
-                  {attack.duration}
-                </div>
               </div>
 
               <h1 className="text-4xl sm:text-5xl font-bold text-white">{attack.title}</h1>
