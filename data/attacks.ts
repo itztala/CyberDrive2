@@ -26,29 +26,73 @@ export const attacks: Attack[] = [
     slug: "can",
     title: "CAN Bus Spoofing",
     tagline: "The car obeys fake commands — and it doesn't even know it.",
-    whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
+    whatis:"The Controller Area Network (CAN) Bus is the communication backbone of modern vehicles. It allows different electronic control units (ECUs)—like brakes, steering, engine, and lights—to send and receive information. Instead of each component having its own wiring, the CAN Bus acts like a shared digital conversation channel where all parts talk to each other to keep the vehicle running smoothly. A CAN Bus spoofing attack happens when an attacker injects fake messages into the CAN network. These messages imitate legitimate signals, tricking the vehicle into doing things the attacker commands—like turning the wheel, disabling brakes, or locking the doors.",
     summary:
       "Hackers inject false messages into the vehicle's nervous system, altering behavior like lights, brakes, or engine control.",
     difficulty: "Intermediate",
     color: "red",
     scenario:
-      "You are a cybersecurity researcher investigating a connected vehicle that has been exhibiting strange behavior. The car's lights are flickering randomly, the engine RPM is fluctuating without driver input, and the brake system is showing intermittent warning messages. Your task is to identify and analyze a CAN Bus spoofing attack that is injecting malicious messages into the vehicle's Controller Area Network.",
+      `
+      "The Ghost Driver Takeover"
+Scene:
+You start off driving smoothly in manual mode. Everything feels normal—the car responds to your steering, braking, and acceleration just the way it should. You're fully in control…
+Until you're not.
+
+What Happens:
+Suddenly...
+
+The steering wheel yanks itself violently to the right.
+
+Then to the left—your hands are on the wheel, but you're no longer driving.
+
+The car speeds up, ignoring your attempts to brake.
+
+Every system starts acting strange: dashboard lights flicker, horn blasts randomly, and you lose all control.
+
+You realize the car is no longer listening to you.
+You’re not driving anymore—a hacker is.
+
+The Crash:
+Before you can react, the car swerves out of lane, dodges into oncoming traffic, and…
+CRASH.
+The screen flashes red:
+
+“⚠ CAN Bus Compromised – System Hijacked”
+      `,
     mission:
-      "Your mission is to understand how attackers can exploit the CAN Bus protocol to send unauthorized commands to vehicle systems. You will learn to identify spoofed CAN messages, analyze their impact on vehicle behavior, and implement effective countermeasures to prevent such attacks. This simulation will teach you the fundamentals of automotive network security and the critical importance of message authentication in connected vehicles.",
+      `The Cyber Defender
+Now it's your turn to take control — from the attacker:
+
+Analyze the fake CAN signals flooding the system
+
+Isolate the malicious ECU pretending to be the brake or steering module
+
+Send override commands to block spoofed messages
+
+Restore control through terminal commands and reboot the network
+
+Each action helps regain a piece of control.
+One mistake... and the car could be hijacked again.
+
+Goal:
+Stop the attack.
+Recover the vehicle.
+Defend the driver's seat.
+
+This is more than a simulation — it’s a race against a cyber intruder inside your car.
+Click “Start Attack” to begin your mission.`,
     actionBreakdown: [
-      "Connect to the vehicle's OBD-II port and establish communication with the CAN Bus network",
-      "Monitor normal CAN traffic patterns and identify baseline message frequencies and data structures",
-      "Detect anomalous CAN messages that don't match expected patterns or timing",
-      "Analyze the content of suspicious messages to understand their intended effect on vehicle systems",
-      "Trace the source of malicious messages and determine the attack vector used",
-      "Implement message filtering and authentication mechanisms to block spoofed messages",
-      "Test the effectiveness of your countermeasures by attempting to reproduce the attack",
-      "Document your findings and create a comprehensive security assessment report",
+      "Access the CAN Network",
+      "Monitor Normal Traffic",
+      "Inject Spoofed Messages",
+      "Observe Vehicle Behavior",
+      "Analyze & Improve Attack",
+
     ],
     technicalDetails:
-      "The CAN Bus (Controller Area Network) is a robust vehicle bus standard designed to allow microcontrollers and devices to communicate with each other without a host computer. However, the original CAN protocol lacks built-in security features such as authentication and encryption. This simulation demonstrates how attackers can exploit these vulnerabilities by injecting crafted messages with specific CAN IDs that correspond to critical vehicle functions. You'll work with real CAN message formats, understand arbitration mechanisms, and learn about the difference between standard and extended frame formats.",
+      "Hackers use tools (like laptops or microcontrollers) to connect to the car’s internal CAN Bus—either through physical access or remotely via vulnerable systems (e.g., infotainment or telematics). Once connected, they send false messages pretending to be from real ECUs. Since CAN lacks authentication, the vehicle accepts them as real.",
     realWorldImpact:
-      "CAN Bus spoofing attacks have been demonstrated in real-world scenarios, including the famous Jeep Cherokee hack that allowed researchers to remotely control steering, braking, and acceleration. Such attacks can lead to catastrophic safety incidents, vehicle theft, or privacy breaches. Understanding these vulnerabilities is crucial for automotive engineers, cybersecurity professionals, and anyone involved in the development of connected and autonomous vehicles. The techniques learned in this simulation are directly applicable to securing modern automotive systems and preventing real-world attacks.",
+      "CAN Bus attacks are dangerous because they take over core vehicle functions. This means an attacker can remotely control or disable safety features—putting passengers and others on the road at risk. Since most vehicles today still rely on CAN with minimal security, this attack is highly relevant in automotive cybersecurity",
     quiz: [
       {
         question: "What is the primary security weakness that makes CAN Bus spoofing possible?",
@@ -124,30 +168,62 @@ export const attacks: Attack[] = [
     slug: "lidar",
     title: "LiDAR Spoofing",
     tagline: "The sensors see ghosts — or worse, they see nothing at all.",
-   whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
+   whatis:"LiDAR (Light Detection and Ranging) is an active remote sensing technology that measures distances by emitting laser pulses and analyzing their reflections. By calculating the time it takes for the laser to return after hitting an object, LiDAR systems generate precise 3D maps of environments. This technology is widely utilized in autonomous vehicles (AVs) for accurate perception of surroundings, aiding in navigation and obstacle detection.. A LiDAR spoofing attack involves the deliberate manipulation of LiDAR sensor data by introducing deceptive laser signals. These malicious inputs can cause AVs to perceive false objects or miss real ones, leading to potential misjudgments in navigation and safety systems.",
     summary:
       "Attackers create false LiDAR signals, tricking the car into reacting to fake obstacles or ignoring real ones.",
     difficulty: "Advanced",
     color: "purple",
     scenario:
-      "You are working as a security consultant for an autonomous vehicle manufacturer. During testing, several self-driving cars have been making unexpected emergency stops and swerving maneuvers in areas where no obstacles are present. Additionally, some vehicles have failed to detect actual obstacles that should have triggered automatic braking. Your investigation reveals that the LiDAR sensors are receiving manipulated signals that create false point cloud data.",
+      `
+      "The Deceptive Laser Trap"
+Scene:
+
+Your car is driving in autonomous mode, relying on its LiDAR sensor—its "eyes"—to detect the road and surroundings. Everything looks normal... until suddenly, things start to go wrong.
+
+What Happens:
+
+Fake Dangers Appear:
+The LiDAR is under attack! It starts detecting phantom objects—like walls or vehicles—that aren't really there. The car panics and hits the brakes multiple times … even though the road is clear. Confused? So is the car.
+
+The Real Danger Begins:
+After dodging ghost objects, the car picks up speed and continues driving. But now the attack changes: the LiDAR misses a real object in front of it—like another car BOOOM it crashes. 
+
+The screen flashes a warning:
+“⚠ LiDAR Failure - System Compromised”
+      `,
     mission:
-      "Your mission is to understand how LiDAR spoofing attacks work and develop effective detection and mitigation strategies. You will learn about LiDAR technology, analyze how attackers can inject false signals, and explore the impact on autonomous vehicle decision-making systems. This simulation will teach you to identify spoofed LiDAR data, understand the physics behind the attacks, and implement robust sensor fusion techniques to maintain vehicle safety.",
+      `
+      You’re no longer just a passenger —
+You're the Cyber Defender.
+
+You must:
+
+Inspect the attack and find the fakes
+
+Activate sensor fusion to double-check LiDAR with other sensors
+
+Run terminal commands to kick out the spoofed signals
+
+Reset and recalibrate the system before another disaster strikes
+
+Every correct step brings the system back online.
+Every mistake… could cost the next crash.
+
+This Isn’t Just a Simulation — It’s Cyber Warfare on Wheels.
+Will you rise to the challenge?
+Click “Start Attack” and prove you can stop the LiDAR deception.
+      `,
     actionBreakdown: [
-      "Study the fundamentals of LiDAR technology and how it generates 3D point cloud data",
-      "Analyze normal LiDAR sensor output and understand typical environmental signatures",
-      "Identify anomalous point cloud data that indicates potential spoofing attacks",
-      "Examine the physical methods used to inject false LiDAR signals using laser devices",
-      "Understand how spoofed data affects the vehicle's perception and decision-making algorithms",
-      "Implement sensor fusion techniques that combine LiDAR with camera and radar data",
-      "Develop algorithms to detect inconsistencies between different sensor modalities",
-      "Test your detection system against various spoofing scenarios and refine the approach",
-      "Create a comprehensive defense strategy that includes both technical and operational measures",
+      "Understand LiDAR Basics",
+      "Analyze Normal vs. Spoofed Data",
+      "Perform the Attack",
+      "Impact on Vehicle Decisions",
+      "Test Detection & Defense",
     ],
     technicalDetails:
-      "LiDAR (Light Detection and Ranging) systems use laser pulses to measure distances and create detailed 3D maps of the environment. The technology relies on time-of-flight calculations and can be vulnerable to signal injection attacks where attackers use their own laser sources to create false returns. This simulation covers the technical aspects of LiDAR operation, including wavelength considerations, pulse timing, and point cloud processing. You'll learn about different types of LiDAR systems (mechanical, solid-state, flash) and their specific vulnerabilities to spoofing attacks.",
+      "LiDAR spoofing operates by projecting counterfeit laser pulses that either mimic legitimate signals or overwhelm the sensor. By carefully timing and directing these malicious signals, attackers can alter the LiDAR's perception, causing it to register nonexistent obstacles or ignore actual ones.",
     realWorldImpact:
-      "LiDAR spoofing represents a significant threat to autonomous vehicles, as these sensors are critical for obstacle detection and navigation. Successful attacks could cause vehicles to brake unnecessarily, creating traffic hazards, or worse, fail to detect real obstacles, leading to collisions. As autonomous vehicles become more prevalent, understanding and mitigating LiDAR vulnerabilities becomes crucial for public safety. The techniques learned in this simulation are essential for engineers working on autonomous vehicle systems and cybersecurity professionals focused on transportation security.",
+      "LiDAR spoofing poses significant risks to the safety and reliability of autonomous vehicles. Successful attacks can lead to inappropriate responses, such as sudden braking or failure to avoid obstacles, increasing the likelihood of accidents. As AVs become more prevalent, understanding and mitigating these vulnerabilities is crucial to ensure secure and dependable operation.",
     quiz: [
       {
         question: "What physical principle do LiDAR systems use to measure distance to objects?",
@@ -232,27 +308,72 @@ export const attacks: Attack[] = [
     slug: "gps",
     title: "GPS Spoofing",
     tagline: "The map says left. The car should go right. You're lost — on purpose.",
-    whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
+    whatis:"GPS spoofing is a cyberattack where counterfeit signals are transmitted to deceive GPS receivers, causing them to compute incorrect positions or times. Unlike jamming, which blocks signals, spoofing provides false data, leading systems to operate based on fabricated information.",
     summary: "Fake GPS signals mislead the vehicle's navigation system, causing disorientation and potential hazards.",
     difficulty: "Beginner",
     color: "blue",
     scenario:
-      "You are a cybersecurity analyst investigating reports of connected vehicles experiencing navigation anomalies in a specific geographic area. Drivers report that their GPS systems are showing incorrect locations, routing them to wrong destinations, and in some cases, directing them into dangerous areas or dead ends. Your preliminary investigation suggests that someone is broadcasting fake GPS signals to manipulate vehicle navigation systems.",
+      `
+      "The Phantom GPS Switch"
+Scene:
+You're gliding smoothly through the streets of Paris, the city of lights. Your autonomous car is in full control, GPS locked, and everything looks perfect.
+Latitude and longitude readings are clean. The dashboard proudly says:
+Location: Paris, France
+
+But then… something strange happens.
+Coordinates start jumping.
+The city name changes.
+Now showing: Amman, Jordan.
+
+Before you can react — the car changes direction on its own. It’s no longer following the intended route. You’re watching a vehicle being misled by spoofed GPS signals. The system doesn’t realize it’s being tricked…
+
+The screen flashes:
+⚠ GPS Spoofing Detected - Navigation Compromised
+
+What Happens:
+Normal GPS Phase:
+The car navigates correctly, with location and path matching reality.
+
+Attack Phase Begins:
+A red warning border flashes. Suddenly, the GPS starts updating with random, fast-changing coordinates.
+
+Fake Location Injected:
+Paris is replaced by Amman. The car follows a path that doesn’t match the real world, blindly trusting fake GPS data.
+
+      `,
     mission:
-      "Your mission is to understand GPS spoofing attacks and their impact on vehicle navigation and safety systems. You will learn how GPS signals work, how attackers can generate fake signals, and the cascading effects on vehicle behavior. This simulation will teach you to detect GPS spoofing attempts, understand the technical requirements for such attacks, and implement countermeasures to ensure reliable navigation even in contested environments.",
+      `
+      You're not just a passenger anymore —
+You’re the Cyber Defender.
+
+You must:
+
+Detect the Attack
+Monitor the sudden changes in GPS values and city names. Something doesn’t add up — can you catch it?
+
+Launch Terminal Mitigation
+Use command-line tools to block GPS inputs and switch to safe navigation mode.
+
+Recalibrate Navigation
+Reset the system, discard spoofed coordinates, and guide the car back to its true path.
+
+This is no ordinary drive —
+It’s a cyber trap disguised as a road.
+
+Will you stop the spoofing before it’s too late?
+
+Click “Start Attack” and prove you can outsmart GPS manipulation.
+      `,
     actionBreakdown: [
-      "Learn the fundamentals of GPS signal structure and how receivers calculate position",
-      "Monitor GPS signal strength and quality indicators to establish baseline measurements",
-      "Identify signs of GPS spoofing including signal anomalies and impossible position jumps",
-      "Analyze the technical setup required to generate convincing fake GPS signals",
-      "Understand how spoofed GPS data affects vehicle routing and autonomous driving systems",
-      "Implement GPS signal validation techniques using multiple positioning sources",
-      "Test alternative positioning methods including inertial navigation and cellular triangulation",
-      "Develop a multi-layered approach to position verification and spoofing detection",
-      "Create protocols for safe vehicle operation when GPS reliability is compromised",
+      "Setup Spoofing Device",
+      "Overpower Real Signals",
+      "Send Fake Coordinates",
+      "Misguide the Vehicle",
+      "Maintain or Shift Spoofed Path",
+      
     ],
     technicalDetails:
-      "GPS spoofing involves broadcasting fake satellite signals that appear legitimate to GPS receivers. Attackers use software-defined radios (SDRs) to generate signals that mimic real GPS satellites, gradually overpowering authentic signals to take control of the receiver's position calculation. This simulation covers GPS signal structure, including the navigation message format, timing requirements, and the mathematical principles behind position calculation. You'll learn about different spoofing techniques, from simple signal overpowering to sophisticated seamless takeover attacks.",
+      "GPS receivers determine location by analyzing signals from multiple satellites. Spoofers exploit this by emitting stronger, fake signals that mimic legitimate ones. The receiver locks onto these counterfeit signals, resulting in erroneous location or time data.",
     realWorldImpact:
       "GPS spoofing poses serious risks to both civilian and military applications. For connected and autonomous vehicles, GPS spoofing can lead to navigation errors, route manipulation, and potential safety hazards. Real-world incidents have included ships being misdirected and drones being captured through GPS manipulation. As vehicles become more dependent on GPS for navigation and timing, understanding these vulnerabilities becomes critical for ensuring transportation security and developing resilient positioning systems.",
     quiz: [
@@ -322,30 +443,86 @@ export const attacks: Attack[] = [
     slug: "remote",
     title: "Remote Hijacking",
     tagline: "You're no longer in control. Someone else is driving — remotely.",
-    whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
+    whatis:"Remote hijacking is a cyberattack where an unauthorized individual gains control over a vehicle without physical access. This is achieved by exploiting vulnerabilities in the vehicle's wireless communication systems—such as Wi-Fi, Bluetooth, cellular networks, or connected applications—to send malicious commands to the car's internal systems. Through these compromised channels, attackers can manipulate critical functions like steering, braking ,lights, acceleration, and door locks from a remote location. Such attacks pose significant safety risks, as they can lead to unauthorized control over the vehicle's operations, endangering both the occupants and others on the road.",
     summary: "Wireless exploits let hackers take control of driving systems like acceleration and steering.",
     difficulty: "Expert",
     color: "red",
     scenario:
-      "You are part of an incident response team investigating a series of connected vehicle security breaches. Multiple vehicles from the same manufacturer have experienced unauthorized remote control, with attackers taking control of critical driving functions including steering, acceleration, and braking. The attacks appear to be coordinated and sophisticated, suggesting a well-resourced threat actor. Your team must quickly understand the attack vector and develop countermeasures before more vehicles are compromised.",
+      `
+      "Hijacked from Nowhere"
+Scene:
+You're driving the car manually.
+The road is clear, and everything feels smooth.
+Steering? 
+Brakes? 
+You’re fully in control…
+Until the car gets a message you didn’t send.
+
+What Happens:
+Out of nowhere…
+
+The headlights start flashing rapidly.
+
+The interior lights blink on and off, like a warning—but no alert appears.
+
+You try to fix it, but then—the steering glitches.
+
+The wheel suddenly pulls to the right.
+
+You fight it… but it keeps turning right in a tight circle, over and over.
+
+Your steering and lights are no longer responding.
+
+You're still holding the wheel.
+But the car is no longer listening.
+You’ve been remotely hijacked.
+
+The Crash:
+You try to regain control—nothing works.
+Lights flashing. Steering stuck.
+The car spins out of control… and crashes.
+
+A red alert takes over the screen:
+“⚠ Remote Access Breach – Manual Override Failed”
+      `,
     mission:
-      "Your mission is to investigate and understand remote vehicle hijacking attacks that exploit wireless communication systems. You will learn about the various wireless interfaces in modern vehicles, identify potential attack vectors, and understand how attackers can gain remote control of critical vehicle systems. This simulation will teach you advanced penetration testing techniques specific to automotive systems and help you develop comprehensive security strategies for connected vehicles.",
+      `
+      The Cyber Defender
+You're now behind the keyboard to stop the invisible hacker.
+You must:
+
+Trace the remote connection back to the compromised interface
+
+Identify which system was hijacked — lights, steering, or more
+
+Execute commands to cut the hacker’s control line
+
+Reinforce security and switch to local-only driving mode
+
+Each correct move weakens the attacker.
+Each wrong one… gives them more time.
+
+Goal:
+End the hijack.
+Recover full control.
+Secure the vehicle.
+
+You’re not just a driver anymore — you’re the firewall between the hacker and the highway.
+Click “Start Attack” to begin your defense mission.
+      `,
     actionBreakdown: [
-      "Map the vehicle's wireless attack surface including cellular, Wi-Fi, and Bluetooth interfaces",
-      "Analyze the vehicle's network architecture and identify critical communication pathways",
-      "Investigate potential entry points through infotainment systems and telematics units",
-      "Understand how attackers can pivot from entertainment systems to safety-critical networks",
-      "Examine the exploitation of over-the-air update mechanisms and remote diagnostic tools",
-      "Learn about privilege escalation techniques within automotive operating systems",
-      "Analyze how attackers can maintain persistence and avoid detection in vehicle systems",
-      "Implement network segmentation and access control measures to prevent lateral movement",
-      "Develop monitoring and detection systems to identify unauthorized remote access attempts",
-      "Create incident response procedures for handling compromised connected vehicles",
+      "Identify Vulnerability",
+      "Gain Remote Access",
+      "Inject Malicious Commands",
+      "Take Control of the Vehicle",
+      "Maintain Access or Cover Tracks",
+      
+      
     ],
     technicalDetails:
-      "Remote vehicle hijacking typically involves exploiting vulnerabilities in the vehicle's wireless communication systems. Modern vehicles contain multiple wireless interfaces including cellular modems for telematics, Wi-Fi for infotainment, and Bluetooth for device connectivity. This simulation covers advanced topics including automotive operating systems, hypervisor security, and the interaction between different vehicle networks (infotainment, body, and powertrain). You'll learn about real attack techniques used in documented vehicle hacks and understand the technical challenges of securing complex automotive systems.",
+      " Modern vehicles are equipped with various wireless communication channels, like infotainment systems, telematics units, over-the-air (OTA) update platforms, and smartphone connectivity. If these systems are not well secured, attackers can exploit them to gain a foothold.",
     realWorldImpact:
-      "Remote vehicle hijacking represents one of the most serious cybersecurity threats to connected and autonomous vehicles. Successful attacks can result in complete loss of vehicle control, potentially leading to accidents, injuries, or fatalities. High-profile demonstrations like the Jeep Cherokee hack have shown that these attacks are not theoretical but represent real and present dangers. Understanding these attack vectors is crucial for automotive manufacturers, cybersecurity professionals, and regulators working to ensure the safety and security of connected transportation systems.",
+      "Remote hijacking can lead to total loss of driver control, accidents, privacy breaches, and even targeted harm. Some high-profile demonstrations have shown vehicles being remotely shut down on highways, or rerouted without the driver’s consent. This threat highlights the urgent need for stronger cybersecurity in smart and connected vehicles.",
     quiz: [
       {
         question: "How would you detect if suspicious CAN messages are being injected into the car's network?",
@@ -418,25 +595,52 @@ export const attacks: Attack[] = [
     difficulty: "Intermediate",
     color: "orange",
     scenario:
-      "You are a digital forensics investigator working on a case involving compromised vehicle infotainment systems. Vehicle owners have reported strange behavior including unauthorized audio playback, unexpected video content appearing on displays, and suspicions that their conversations are being recorded. Some drivers have also reported receiving threatening messages through their vehicle's display system. Your investigation needs to determine how attackers gained access to these systems and what data may have been compromised.",
+      `"The Phantom DJ"
+Scene:
+You're driving your car manually, enjoying a peaceful ride. The dashboard is calm, and everything seems normal.
+Suddenly, the radio turns on by itself, blasting unfamiliar sounds. A distorted 
+      voice cuts through the noise: "I'm in control now."
+What Happens:
+The infotainment system activates without your input.
+      Unusual sounds and a hacker's voice play through the speakers.
+Attempts to adjust or turn off the radio fail.
+The system becomes unresponsive, leaving you distracted and concerned.
+The Danger:
+This isn't just a prank. The attacker is exploiting vulnerabilities in your car's multimedia system to distract and unsettle you. While the vehicle's core functions remain unaffected, your focus is compromised, increasing the risk of an accident
+      `,
     mission:
-      "Your mission is to investigate multimedia hijacking attacks that target vehicle infotainment systems for surveillance and psychological manipulation. You will learn about the security vulnerabilities in automotive multimedia systems, understand how attackers can gain unauthorized access to cameras and microphones, and explore the privacy implications of compromised vehicle systems. This simulation will teach you digital forensics techniques specific to automotive systems and help you understand the broader implications of infotainment security.",
+      `
+      The Cyber Defender
+You must act swiftly to neutralize the threat:
+
+Identify the source of the unauthorized audio.
+
+Access the infotainment system's diagnostics.
+
+Terminate the rogue audio stream.
+
+Secure the multimedia system against further intrusions.
+
+Each correct action restores control and ensures your safety.
+
+Goal:
+Eliminate the distraction. Regain control of the multimedia system. Ensure a safe driving experience.
+
+Ready to face the Phantom DJ?
+Click “Start Attack” to begin your mission.
+      `,
     actionBreakdown: [
-      "Analyze the architecture of modern vehicle infotainment systems and their connectivity options",
-      "Investigate how attackers can gain initial access through USB ports, Bluetooth, or wireless networks",
-      "Examine the file system and identify signs of unauthorized software installation or modification",
-      "Understand how attackers can access and control built-in cameras and microphones",
-      "Analyze network traffic to identify unauthorized data transmission from the vehicle",
-      "Investigate how multimedia hijacking can be used for driver distraction and psychological warfare",
-      "Learn about the privacy implications of compromised vehicle surveillance systems",
-      "Implement security measures to prevent unauthorized access to multimedia components",
-      "Develop detection mechanisms for identifying compromised infotainment systems",
-      "Create user awareness guidelines for recognizing and responding to multimedia attacks",
+      "Exploit Infotainment Vulnerability",
+      "Gain Unauthorized Access",
+      "Inject Malicious Media Commands",
+      "Hijack Audio/Video Output",
+      "Maintain or Escalate Control",
+      
     ],
     technicalDetails:
-      "Vehicle infotainment systems are essentially computers running modified versions of Android, Linux, or proprietary operating systems. These systems often have access to vehicle cameras, microphones, and display systems, making them attractive targets for attackers seeking surveillance capabilities. This simulation covers the technical aspects of infotainment system architecture, including the Android Automotive platform, QNX systems, and custom automotive operating systems. You'll learn about common vulnerabilities in these systems and understand how they can be exploited for unauthorized surveillance and content manipulation.",
+      "Infotainment systems are connected to various components, including Bluetooth, USB ports,     Wi-Fi, GPS, and smartphone integration. If the attacker gains access—through a malicious file, remote connection, or unpatched vulnerability—they can:",
     realWorldImpact:
-      "Multimedia hijacking attacks represent a significant privacy and safety threat to vehicle occupants. Beyond the obvious privacy violations of unauthorized surveillance, these attacks can be used to distract drivers, display disturbing content, or even facilitate stalking and harassment. As vehicles become more connected and feature-rich, the attack surface for multimedia hijacking continues to expand. Understanding these threats is essential for automotive manufacturers, privacy advocates, and cybersecurity professionals working to protect vehicle occupants from digital threats.",
+      "Multimedia hijacking is a growing threat, especially as cars become more “connected.” It can be used for psychological disruption, phishing-style deceptions (fake warnings, GPS rerouting), or coordination with larger attacks (like remote hijacking or spoofing). Even without physical control, a hacker can manipulate what the driver sees and hears, breaking trust in the system.",
     quiz: [
       {
         question: "What is the most common entry point for multimedia hijacking attacks in vehicles?",
