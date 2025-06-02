@@ -26,10 +26,6 @@ export function Hero() {
                 Start Simulating Now
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button variant="outline" size="lg" className="border-gray-300">
-                <Play className="mr-2 h-5 w-5" />
-                Watch Demo
-              </Button>
             </div>
 
             <div className="flex items-center space-x-8 text-sm text-gray-500">
