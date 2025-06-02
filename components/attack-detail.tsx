@@ -12,11 +12,11 @@ interface AttackDetailProps {
 
 export function AttackDetail({ attack }: AttackDetailProps) {
   const handleStartAttack = () => {
-    window.location.href = `http://127.0.0.1:5000/attack/${attack.slug}`
+    window.location.href = `http://127.0.0.1:3000/simulation-lab/attack/mitigation/${attack.slug}`
   }
 
   const handleStartMitigation = () => {
-    window.location.href = `http://127.0.0.1:5000/mitigation/${attack.slug}`
+    window.location.href = `http://127.0.0.1:3000/simulation-lab/attack/mitigation/${attack.slug}`
   }
 
   const difficultyColors = {
