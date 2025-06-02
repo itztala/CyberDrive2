@@ -9,6 +9,7 @@ export interface Attack {
   title: string
   tagline: string
   summary: string
+  whatis:string
   difficulty: string
   duration: string
   color: string
@@ -22,9 +23,11 @@ export interface Attack {
 
 export const attacks: Attack[] = [
   {
+  
     slug: "can",
     title: "CAN Bus Spoofing",
     tagline: "The car obeys fake commands — and it doesn't even know it.",
+    whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
     summary:
       "Hackers inject false messages into the vehicle's nervous system, altering behavior like lights, brakes, or engine control.",
     difficulty: "Intermediate",
@@ -123,6 +126,7 @@ export const attacks: Attack[] = [
     slug: "lidar",
     title: "LiDAR Spoofing",
     tagline: "The sensors see ghosts — or worse, they see nothing at all.",
+   whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
     summary:
       "Attackers create false LiDAR signals, tricking the car into reacting to fake obstacles or ignoring real ones.",
     difficulty: "Advanced",
@@ -231,6 +235,7 @@ export const attacks: Attack[] = [
     slug: "gps",
     title: "GPS Spoofing",
     tagline: "The map says left. The car should go right. You're lost — on purpose.",
+    whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
     summary: "Fake GPS signals mislead the vehicle's navigation system, causing disorientation and potential hazards.",
     difficulty: "Beginner",
     duration: "30 min",
@@ -321,6 +326,7 @@ export const attacks: Attack[] = [
     slug: "remote",
     title: "Remote Hijacking",
     tagline: "You're no longer in control. Someone else is driving — remotely.",
+    whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
     summary: "Wireless exploits let hackers take control of driving systems like acceleration and steering.",
     difficulty: "Expert",
     duration: "90 min",
@@ -412,7 +418,8 @@ export const attacks: Attack[] = [
     slug: "multimedia",
     title: "Multimedia Hijacking",
     tagline: "The screen flickers. Strange audio plays. You're being watched.",
-    summary: "Compromised infotainment systems are used to distract or spy on drivers through unauthorized content.",
+    whatis:"Multimedia hijacking is a cyberattack that targets a vehicle’s infotainment system, allowing an attacker to manipulate the car's screens, audio, navigation, and connected apps. While it may seem less dangerous than steering or braking attacks, multimedia hijacking can be used to distract the driver, display false information, or even cause panic, paving the way for more severe actions.",
+    summary: "The infotainment system has been compromised,Attackers might inject unauthorized audio content distractions while driving.",
     difficulty: "Intermediate",
     duration: "40 min",
     color: "orange",
