@@ -6,12 +6,6 @@ interface AttackDescriptionProps {
 }
 
 export function AttackDescription({ attack }: AttackDescriptionProps) {
-  const difficultyColors = {
-    Beginner: "bg-green-100 text-green-800 border-green-200",
-    Intermediate: "bg-yellow-100 text-yellow-800 border-yellow-200",
-    Advanced: "bg-orange-100 text-orange-800 border-orange-200",
-    Expert: "bg-red-100 text-red-800 border-red-200",
-  }
 
   return (
     <>
@@ -23,13 +17,6 @@ export function AttackDescription({ attack }: AttackDescriptionProps) {
           <div className="max-w-4xl mx-auto">
             <div className="space-y-6">
               <div className="flex flex-wrap items-center gap-4">
-                <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium border ${
-                    difficultyColors[attack.difficulty as keyof typeof difficultyColors]
-                  }`}
-                >
-                  {attack.difficulty}
-                </span>
                 <div className="flex items-center text-slate-300 text-sm">
                   <Clock className="h-4 w-4 mr-1" />
                   {attack.duration}

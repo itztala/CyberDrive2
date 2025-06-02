@@ -8,12 +8,6 @@ interface AttackCardProps {
 }
 
 export function AttackCard({ attack }: AttackCardProps) {
-  const difficultyColors = {
-    Beginner: "bg-green-100 text-green-800",
-    Intermediate: "bg-yellow-100 text-yellow-800",
-    Advanced: "bg-orange-100 text-orange-800",
-    Expert: "bg-red-100 text-red-800",
-  }
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -21,13 +15,6 @@ export function AttackCard({ attack }: AttackCardProps) {
         <div className="space-y-3">
           <div className="flex items-start justify-between">
             <h3 className="text-xl font-bold text-gray-900">{attack.title}</h3>
-            <span
-              className={`px-2 py-1 rounded-full text-xs font-medium ${
-                difficultyColors[attack.difficulty as keyof typeof difficultyColors]
-              }`}
-            >
-              {attack.difficulty}
-            </span>
           </div>
 
           <blockquote className="text-sm italic text-gray-600 border-l-4 border-gray-200 pl-4">
@@ -43,8 +30,6 @@ export function AttackCard({ attack }: AttackCardProps) {
             <span>{attack.duration}</span>
           </div>
           <div className="flex items-center space-x-1">
-            <BarChart3 className="h-4 w-4" />
-            <span>{attack.difficulty}</span>
           </div>
         </div>
 

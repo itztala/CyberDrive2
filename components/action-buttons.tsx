@@ -52,49 +52,13 @@ export function ActionButtons({ attack }: ActionButtonsProps) {
             {/* Mitigation Training */}
             <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
               <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-white" />
+                 <Brain className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-green-900 mb-3">Phase 2: Mitigation Training</h3>
+              <h3 className="text-xl font-bold text-green-900 mb-3">Phase 2: Knowledge Assessment</h3>
               <p className="text-green-700 mb-6">
-                Learn to defend against the attack. Practice detection, response, and prevention techniques.
-              </p>
-              <Button
-                size="lg"
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold"
-                onClick={handleStartMitigation}
-              >
-                <Shield className="mr-2 h-5 w-5" />
-                Start Mitigation Training
-              </Button>
-            </div>
-          </div>
-
-          {/* Quiz Section */}
-          <div className="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 rounded-xl p-8">
-            {/* Warning Tip */}
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
-              <div className="flex items-start space-x-3">
-                <AlertTriangle className="h-6 w-6 text-amber-600 mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-amber-900 mb-2">⚠️ Before Starting the Quiz</h4>
-                  <p className="text-amber-800 leading-relaxed">
-                    Make sure you've completed both the Attack and Mitigation simulations. The quiz is designed to test
-                    your understanding after hands-on practice — not before. Ready to challenge yourself?
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Brain className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-indigo-900 mb-3">Phase 3: Knowledge Assessment</h3>
-              <p className="text-indigo-700 text-lg mb-8">
                 Test your understanding with real-world scenarios and reinforce what you've learned through hands-on
                 practice.
               </p>
-
               <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold" asChild>
                 <Link href={`/simulation-lab/${attack.slug}/quiz`}>
                   <Brain className="mr-2 h-5 w-5" />
