@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation"
 import { Shield, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
+
 
 export function Header() {
   const pathname = usePathname()
@@ -29,9 +31,8 @@ export function Header() {
             <Link
               key={item.name}
               href={item.href}
-              className={`text-sm font-medium transition-colors hover:text-blue-600 ${
-                pathname === item.href ? "text-blue-600" : "text-gray-600"
-              }`}
+              className={`text-sm font-medium transition-colors hover:text-blue-600 ${pathname === item.href ? "text-blue-600" : "text-gray-600"
+                }`}
             >
               {item.name}
             </Link>
@@ -40,9 +41,15 @@ export function Header() {
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center space-x-4">
-          <Button variant="ghost" asChild>
-            <Link href="/login">Sign In</Link>
-          </Button>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button variant="ghost">Sign In</Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+
           <Button asChild>
             <Link href="/simulation-lab">Get Started</Link>
           </Button>
@@ -62,18 +69,22 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`block text-sm font-medium transition-colors hover:text-blue-600 ${
-                  pathname === item.href ? "text-blue-600" : "text-gray-600"
-                }`}
+                className={`block text-sm font-medium transition-colors hover:text-blue-600 ${pathname === item.href ? "text-blue-600" : "text-gray-600"
+                  }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
             <div className="pt-4 space-y-2">
-              <Button variant="ghost" className="w-full" asChild>
-                <Link href="/login">Sign In</Link>
-              </Button>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <Button variant="ghost" className="w-full">Sign In</Button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
               <Button className="w-full" asChild>
                 <Link href="/simulation-lab">Get Started</Link>
               </Button>
