@@ -17,10 +17,6 @@ export function AttackDescription({ attack }: AttackDescriptionProps) {
           <div className="max-w-4xl mx-auto">
             <div className="space-y-6">
               <div className="flex flex-wrap items-center gap-4">
-                <div className="flex items-center text-slate-300 text-sm">
-                  <Clock className="h-4 w-4 mr-1" />
-                  {attack.duration}
-                </div>
               </div>
 
               <h1 className="text-4xl sm:text-5xl font-bold text-white">{attack.title}</h1>

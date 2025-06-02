@@ -26,10 +26,6 @@ export function AttackCard({ attack }: AttackCardProps) {
 
         <div className="flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center space-x-1">
-            <Clock className="h-4 w-4" />
-            <span>{attack.duration}</span>
-          </div>
-          <div className="flex items-center space-x-1">
           </div>
         </div>
 
