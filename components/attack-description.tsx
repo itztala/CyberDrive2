@@ -41,7 +41,7 @@ export function AttackDescription({ attack }: AttackDescriptionProps) {
                 <Target className="h-6 w-6 text-blue-600 mr-3" />
                 <h2 className="text-2xl font-bold text-gray-900">What is {attack.title}?</h2>
               </div>
-              <p className="text-gray-700 leading-relaxed text-lg">{attack.summary}</p>
+              <p className="text-gray-700 leading-relaxed text-lg">{attack.whatis}</p>
             </div>
 
             {/* How it Works */}
