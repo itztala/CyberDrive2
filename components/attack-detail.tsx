@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Play, Shield, Clock, BarChart3, Target, AlertTriangle } from "lucide-react"
+import { ArrowLeft, Play, Shield, BarChart3, Target, AlertTriangle } from "lucide-react"
 import Link from "next/link"
 import type { Attack } from "@/data/attacks"
 import { QuizSection } from "@/components/quiz-section"
