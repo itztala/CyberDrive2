@@ -11,11 +11,11 @@ interface ActionButtonsProps {
 
 export function ActionButtons({ attack }: ActionButtonsProps) {
   const handleStartAttack = () => {
-    window.location.href = `http://127.0.0.1:3000/simulation-lab/attack/mitigation/${attack.slug}`
+    window.location.href = `http://127.0.0.1:5000/simulation-lab/attack/${attack.slug}`
   }
 
   const handleStartMitigation = () => {
-    window.location.href = `http://127.0.0.1:3000/simulation-lab/attack/mitigation/${attack.slug}`
+    window.location.href = `http://127.0.0.1:5000/simulation-lab/attack/${attack.slug}`
   }
 
   return (
