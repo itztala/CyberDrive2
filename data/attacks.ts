@@ -772,6 +772,7 @@ export const commands = [
     expectedOutput: `[INFO] Filtering rules reloaded
     [SECURE] CAN bus stabilized. Manual control restored.`,
 },
+
 {
     command: "multimeda-mon",
     expectedOutput: `[INFO] Monitoring infotainment system logs...
@@ -808,8 +809,9 @@ export const commands = [
     command: "netlog --blacklist 100.82.45.111",
     expectedOutput: "[✔] IP 100.82.45.111 has been blacklisted from all future connections",
 },
+
 {
-    command: "multimeda-mon",
+    command: "kill 1234",
     expectedOutput: `[STATUS] No suspicious playback
     [STATUS] Media API: Secured
     [STATUS] Remote ADB: Disabled`,
@@ -843,12 +845,6 @@ export const commands = [
 {
     command: "netlog --blacklist 192.168.1.99",
     expectedOutput: "Command executed successfully",
-},
-{ 
-    command: "system-status",
-    expectedOutput: `[STATUS] CAN Interface: OFF
-    [STATUS] Remote Access Ports: Secured
-    [STATUS] No unauthorized process detected`,
 },
 
 { 
