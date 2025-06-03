@@ -3,102 +3,157 @@
 import { useEffect, useRef, useState } from 'react';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
+import { commands as importedCommands } from '@/data/attacks';
 
-type CommandMap = {
-  [key: string]: {
-    description: string;
-    response: string;
-  };
+interface TerminalComponentProps {
+  attackSlug: string;
+}
+
+const staticCommands: Record<string, { command: string; description: string }[]> = {
+  can: [
+    { command: '$canmon', description: 'Run CAN diagnostic tool' },
+    { command: '$canlog --ids', description: 'Clear CAN error flags' },
+    { command: '$canlog --id <suspicious_id>', description: 'Clear CAN error flags' },
+    { command: '$obdscan --devices', description: 'Clear CAN error flags' },
+    { command: '$canban block 0x66', description: 'Clear CAN error flags' },
+    { command: '$obdscan --remove 0x66', description: 'Clear CAN error flags' },
+    { command: '$firewall --reload', description: 'Clear CAN error flags' },
+  ],
+  gps: [
+    { command: 'locate', description: 'Show current GPS coordinates' },
+    { command: 'mitigate', description: 'Trigger spoofing mitigation' },
+  ],
+  remote: [
+    { command: 'scan', description: 'Scan for open vehicle services' },
+    { command: 'lockout', description: 'Block remote access' },
+  ],
+   multimedia: [
+    { command: 'multimedia-mon', description: 'Scan for open vehicle services' },
+    { command: 'netstat -tuln', description: 'Block remote access' },
+    { command: 'netlog --last 10', description: 'Block remote access' },
+    { command: 'firewall --block 8080 -tuln', description: 'Block remote access' },
+    { command: 'netstat -tuln', description: 'Block remote access' },
+    { command: 'netstat -tuln', description: 'Block remote access' },
+    { command: 'netstat -tuln', description: 'Block remote access' },
+    { command: 'netstat -tuln', description: 'Block remote access' },
+
+  ],
 };
 
-const TerminalComponent = () => {
+const unlockCommand: Record<string, string> = {
+  can: 'firewall --reload',
+  gps: 'mitigate',
+  remote: 'lockout',
+  multimedia: 'multi'
+};
+
+const TerminalComponent = ({ attackSlug }: TerminalComponentProps) => {
   const terminalRef = useRef<HTMLDivElement | null>(null);
   const term = useRef<Terminal | null>(null);
   const inputBuffer = useRef<string>('');
-  const commandsRef = useRef<CommandMap>({});
-  const initializedRef = useRef(false);
-
-  const [commands, setCommands] = useState<CommandMap>({});
+  const [isUnlocked, setIsUnlocked] = useState(false);
 
   useEffect(() => {
-    if (initializedRef.current) return;
-    initializedRef.current = true;
+    if (!terminalRef.current) return;
 
-    const initTerminal = async () => {
-      if (!terminalRef.current) return;
+    const terminal = new Terminal({
+      cursorBlink: true,
+      fontFamily: 'monospace',
+      theme: {
+        background: '#1e1e1e',
+        foreground: '#00ff00',
+      },
+    });
 
-      try {
-        const res = await fetch('/commands.json'); // ✅ Updated path
-        const data: CommandMap = await res.json();
-        commandsRef.current = data;
-        setCommands(data);
-      } catch (error) {
-        console.error('Failed to load commands.json:', error);
-      }
+    terminal.open(terminalRef.current);
+    terminal.focus();
+    terminal.write(`Welcome to the simulated terminal for "${attackSlug}" attack\r\n$ `);
 
-      term.current = new Terminal({
-        cursorBlink: true,
-        fontFamily: 'monospace',
-        theme: {
-          background: '#1e1e1e',
-          foreground: '#ffffff',
-        },
-      });
+    term.current = terminal;
 
-      term.current.open(terminalRef.current);
-      term.current.write('Welcome to the simulated terminal\r\n$ ');
+    terminal.onKey(({ key, domEvent }) => {
+      const char = key;
 
-      term.current.onKey(({ key, domEvent }) => {
-        const char = key;
+      if (char === '\r') {
+        const input = inputBuffer.current.trim().toLowerCase();
+        terminal.write('\r\n');
 
-        if (char === '\r') {
-          const command = inputBuffer.current.trim().toLowerCase();
-          term.current?.write('\r\n');
+        const match = importedCommands.find(
+          cmd => cmd.command.trim().toLowerCase() === input
+        );
 
-          const cmdObj = commandsRef.current[command];
-          if (cmdObj) {
-            cmdObj.response.split('\n').forEach(line => term.current?.writeln(line));
-          } else {
-            term.current?.writeln(`Command not found: ${command}`);
-          }
-
-          inputBuffer.current = '';
-          term.current?.write('$ ');
-        } else if (char === '\u007F') {
-          if (inputBuffer.current.length > 0) {
-            inputBuffer.current = inputBuffer.current.slice(0, -1);
-            term.current?.write('\b \b');
-          }
-        } else if (!domEvent.ctrlKey && !domEvent.metaKey) {
-          inputBuffer.current += char;
-          term.current?.write(char);
+        if (match) {
+          match.expectedOutput.split('\n').forEach(line => terminal.writeln(line));
+        } else {
+          terminal.writeln(`Command not found: "${input}"`);
         }
-      });
-    };
 
-    initTerminal();
+        // Unlock if the correct command is entered
+        if (input === unlockCommand[attackSlug]?.toLowerCase()) {
+          setIsUnlocked(true);
+          terminal.writeln('✅ Mitigation process is now unlocked.');
+        }
+
+        inputBuffer.current = '';
+        terminal.write('$ ');
+      } else if (char === '\u007F') {
+        if (inputBuffer.current.length > 0) {
+          inputBuffer.current = inputBuffer.current.slice(0, -1);
+          terminal.write('\b \b');
+        }
+      } else if (!domEvent.ctrlKey && !domEvent.metaKey) {
+        inputBuffer.current += char;
+        terminal.write(char);
+      }
+    });
 
     return () => {
-      term.current?.dispose();
+      terminal.dispose();
     };
-  }, []);
+  }, [attackSlug]);
 
   return (
-    <>
-      <div ref={terminalRef} style={{ height: '400px', width: '100%' }} />
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+      <div
+        ref={terminalRef}
+        style={{
+          height: '400px',
+          width: '100%',
+          backgroundColor: '#1e1e1e',
+          padding: '1px',
+          border: '1px solid #333',
+          overflow: 'auto',
+        }}
+      />
 
-      {/* Command container below terminal */}
-      <div style={{ textAlign: 'center', marginTop: '50px' }}>
-        <h3>Available Commands</h3>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-          {Object.entries(commands).map(([cmd, { description }]) => (
-            <li key={cmd} style={{ margin: '6px 0' }}>
-              <strong>{cmd}</strong> – {description}
+      <div style={{ marginTop: '1rem', padding: '1rem', backgroundColor: '#f4f4f4', borderRadius: '8px' }}>
+        <h2 style={{ marginBottom: '0.5rem' }}>🛠️ Available Commands</h2>
+        <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
+          {(staticCommands[attackSlug] || []).map((cmd, idx) => (
+            <li key={idx}>
+              <strong>{cmd.command}</strong>: {cmd.description}
             </li>
           ))}
         </ul>
+
+        <button
+          onClick={() => window.location.href = `http://127.0.0.1:5000/mitigation/${attackSlug}`}
+          disabled={!isUnlocked}
+          style={{
+            marginTop: '1.5rem',
+            padding: '12px 24px',
+            fontSize: '16px',
+            backgroundColor: isUnlocked ? '#2980b9' : '#ccc',
+            color: isUnlocked ? '#fff' : '#666',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: isUnlocked ? 'pointer' : 'not-allowed',
+          }}
+        >
+          🚀 Start Mitigation Process
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 

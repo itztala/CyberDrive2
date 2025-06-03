@@ -1,9 +1,16 @@
-import TerminalComponent from '@/components/Terminal';
+// DO NOT include 'use client' here
 
-export default function AttackMitigationPage() {
+import TerminalComponent from '@/components/Terminal';
+interface PageProps {
+  params: {
+    attack: string;
+  };
+}
+
+export default function AttackMitigationPage({ params }: PageProps) {
   return (
     <main style={{ padding: '2rem' }}>
-      <TerminalComponent />
+      <TerminalComponent attackSlug={params.attack} />
     </main>
   );
 }

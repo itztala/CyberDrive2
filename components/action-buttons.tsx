@@ -14,8 +14,8 @@ export function ActionButtons({ attack }: ActionButtonsProps) {
     window.location.href = `http://127.0.0.1:5000/attack/${attack.slug}`
   }
 
-  const handleStartMitigation = () => {
-    window.location.href = `http://127.0.0.1:5000/attack/${attack.slug}`
+  const handleStartMitigation = () => {window.location.href = `http://127.0.0.1:5000/mitigation/${attack.slug}`
+    
   }
 
   return (

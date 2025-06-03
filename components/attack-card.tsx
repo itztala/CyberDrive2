@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Clock, BarChart3 } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import type { Attack } from "@/data/attacks"
 
 interface AttackCardProps {
